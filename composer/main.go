@@ -1,21 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"flag"
+	"fmt"
 	"math/rand"
-	"time"
 	"os"
+	"time"
 
 	"github.com/dallasmarlow/composers"
 )
 
 var (
-	listenAddr = flag.String(`addr`, `:8080`, `composer listener address`)
+	listenAddr   = flag.String(`addr`, `:8080`, `composer listener address`)
 	composerName = flag.String(`name`, ``, `composer name`)
 	randComposer = flag.Bool(`rand`, false, `random composer`)
 )
-
 
 func main() {
 	flag.Parse()
@@ -28,11 +27,11 @@ func main() {
 		composer = composers.Find(*composerName)
 		if composer.Name == `` {
 			fmt.Println(`unknown composer:`, *composerName)
-			os.Exit(1)			
+			os.Exit(1)
 		}
 	}
 
 	if err := composer.Listen(*listenAddr); err != nil {
-		fmt.Println(`composer exitied with err:`, err)		
+		fmt.Println(`composer exitied with err:`, err)
 	}
 }

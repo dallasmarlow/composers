@@ -14,7 +14,7 @@ func (c Composers) find(name string) Composer {
 		}
 	}
 
-	return Composer{}	
+	return Composer{}
 }
 
 var (
@@ -39,4 +39,3 @@ func Find(name string) Composer {
 func Rand() Composer {
 	return composers[rand.Intn(len(composers))]
 }
-
