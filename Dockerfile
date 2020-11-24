@@ -1,4 +1,4 @@
-FROM ubuntu:latest AS build
+FROM debian:latest AS build
 
 ENV DEBIAN_FRONTEND=noninteractive \
     GOPATH=/go \
@@ -11,6 +11,6 @@ RUN apt-get update && \
 COPY . /go/src/${pkg}
 RUN go install ${pkg}/composer
 
-FROM ubuntu:latest
+FROM debian:latest
 COPY --from=build /go/bin/composer /usr/local/bin/composer
 ENTRYPOINT ["/usr/local/bin/composer"]
