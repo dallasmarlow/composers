@@ -36,5 +36,9 @@ func (c Composer) Listen(addr string) error {
 		fmt.Fprintf(w, buf.String())
 	})
 
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "OK")
+	})
+
 	return http.ListenAndServe(addr, nil)
 }
