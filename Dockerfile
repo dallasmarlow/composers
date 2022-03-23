@@ -1,16 +1,14 @@
-FROM debian:latest AS build
+FROM debian:bullseye-slim AS build
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    GOPATH=/go \
-    pkg=github.com/dallasmarlow/composers
-
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y golang && \
     apt-get clean
 
-COPY . /go/src/${pkg}
-RUN go install ${pkg}/composer
+COPY . /opt
+WORKDIR /opt
+RUN go install composer/*
 
-FROM debian:latest
-COPY --from=build /go/bin/composer /usr/local/bin/composer
+FROM debian:bullseye-slim
+COPY --from=build /root/go/bin/composer /usr/local/bin/composer
 ENTRYPOINT ["/usr/local/bin/composer"]
